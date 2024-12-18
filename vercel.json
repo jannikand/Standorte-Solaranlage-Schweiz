@@ -1,7 +1,11 @@
 {
-    "functions": {
-      "api/*.py": {
-        "timeout": 60
+    "builds": [
+      {
+        "src": "api/*.py",
+        "use": "@vercel/python",
+        "config": {
+          "maxDuration": 60
+        }
       }
-    }
+    ]
   }
