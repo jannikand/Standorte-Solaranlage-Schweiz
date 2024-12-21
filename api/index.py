@@ -1,6 +1,7 @@
 import altair as alt
 import json
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+import uvicorn
 
 ### Create FastAPI instance with custom docs and openapi url
 app = FastAPI(docs_url="/api/py/docs", openapi_url="/api/py/openapi.json")
@@ -85,8 +86,8 @@ async def standorte(ausrichtung_min: float, ausrichtung_max: float, neigung_min:
 
         visualisierung = karte & balkendiagramm
 
-        visualisierung.save('api/api_visualisierung.json')
-        #return visualisierung.to_dict()
+        #visualisierung.save('api/api_visualisierung.json')
+        return visualisierung.to_dict()
     
     except Exception as error:
         raise HTTPException(status_code=500, detail=str(error))
@@ -96,3 +97,4 @@ if __name__ == "__main__":
 
 #Abrage
 #127.0.0.1:8000/api/standorte?ausrichtung_min=140&ausrichtung_max=220&neigung_min=10&neigung_max=50&sonne_min=0.01&sonne_max=1
+#/api/standorte?ausrichtung_min=140&ausrichtung_max=220&neigung_min=10&neigung_max=50&sonne_min=0.5&sonne_max=1
