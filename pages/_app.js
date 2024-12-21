@@ -5,7 +5,6 @@ import { useState } from "react";
 import { Box, Button, Alert, TextField, Stack, Divider } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { VegaLite } from "react-vega";
-import standard_visualisierung from "/public/standard_visualisierung.json";
 
 export default function App() {
   const [Ausrichtung_min, setAusrichtung_min] = useState(140);
