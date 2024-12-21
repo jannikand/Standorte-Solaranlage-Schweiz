@@ -9,7 +9,7 @@ import { VegaLite } from "react-vega";
 import standard_visualisierung from "/public/standard_visualisierung.json";
 
 export default function App() {
-  const [Visualisierung, setVisualisierung] = useState(standard_visualisierung);
+  const [Visualisierung, setVisualisierung] = useState({});
   const [ErrorMsg, setErrorMsg] = useState(null);
 
   async function FilterAnfrage() {
