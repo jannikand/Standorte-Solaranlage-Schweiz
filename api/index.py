@@ -53,9 +53,8 @@ async def standorte(ausrichtung_min: float, ausrichtung_max: float, neigung_min:
                 filter_sonne
             )
         ).properties(
-            width=1200,
-            height=700,
-            title="Standorte Grosssolaranlagen"
+            width=1000,
+            height=650,
         )
 
         balkendiagramm = alt.Chart(alt.Data(values=standorte_daten)).mark_bar().encode(
@@ -69,7 +68,7 @@ async def standorte(ausrichtung_min: float, ausrichtung_max: float, neigung_min:
                                         scale=alt.Scale(range=['#ffa1b7', '#520051'])), 
                                 alt.value('lightgray')),
         ).properties(
-            width=1200,
+            width=1025,
             height=500,
             title="Histogramm der Eignungswerte"
         ).add_params(

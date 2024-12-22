@@ -1,24 +1,42 @@
 /* eslint-disable no-unused-vars */
 import Typography from "@mui/material/Typography";
 import React from "react";
-import { useState } from "react";
-import { Box, Button, Alert, TextField, Stack, Divider } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
+import { useState, useEffect } from "react";
+import {
+  Box,
+  Button,
+  Alert,
+  TextField,
+  Stack,
+  Divider,
+  Slider,
+  InputAdornment,
+  CircularProgress,
+} from "@mui/material";
 import { VegaLite } from "react-vega";
+import { Slider_w_Textfield } from "/pages/components/Slider_w_Textfield";
+import { Beschreibung_Ausrichtung } from "/pages/components/Texte/Beschreibung_Ausrichtung";
+import { Beschreibung_Neigung } from "/pages/components/Texte/Beschreibung_Neigung";
+import { Beschreibung_Sonne } from "/pages/components/Texte/Beschreibung_Sonne";
 
 export default function App() {
-  const [Ausrichtung_min, setAusrichtung_min] = useState(140);
-  const [Ausrichtung_max, setAusrichtung_max] = useState(220);
-  const [Neigung_min, setNeigung_min] = useState(10);
-  const [Neigung_max, setNeigung_max] = useState(50);
-  const [Sonne_min, setSonne_min] = useState(0.01);
-  const [Sonne_max, setSonne_max] = useState(1);
+  const [Ausrichtung, setAusrichtung] = useState([140, 220]);
+  const [Neigung, setNeigung] = useState([10, 50]);
+  const [Sonne, setSonne] = useState([0.01, 100]);
   const [Visualisierung, setVisualisierung] = useState({});
   const [isLoading, setLoading] = useState(false);
   const [ErrorMsg, setErrorMsg] = useState(null);
 
   async function FilterAnfrage() {
-    let URL = `/api/standorte?ausrichtung_min=${Ausrichtung_min}&ausrichtung_max=${Ausrichtung_max}&neigung_min=${Neigung_min}&neigung_max=${Neigung_max}&sonne_min=${Sonne_min}&sonne_max=${Sonne_max}`;
+    {
+      /*setAusrichtung_min(Math.min(Math.max(Ausrichtung_min, 140), 220));
+    setAusrichtung_max(Math.min(Math.max(Ausrichtung_max, 140), 220));*/
+    }
+    let URL = `/api/standorte?ausrichtung_min=${
+      Ausrichtung[0]
+    }&ausrichtung_max=${Ausrichtung[1]}&neigung_min=${Neigung[0]}&neigung_max=${
+      Neigung[1]
+    }&sonne_min=${Sonne[0] / 100}&sonne_max=${Sonne[1] / 100}`;
     try {
       setLoading(true);
       const resp = await fetch(URL);
@@ -34,6 +52,10 @@ export default function App() {
     }
   }
 
+  useEffect(() => {
+    FilterAnfrage();
+  }, []);
+
   return (
     <>
       <Stack
@@ -42,41 +64,59 @@ export default function App() {
         sx={{
           justifyContent: "center",
           alignItems: "center",
-          padding: 2,
         }}
       >
         <Stack
           direction="column"
-          spacing={2}
+          spacing={1}
           sx={{
             alignItems: "flex-start",
             width: "100%",
-            maxWidth: "1330px",
+            maxWidth: "1356px",
           }}
         >
           <Typography variant="h2">Standorte Grosssolaranlagen</Typography>
           <Divider orientation="horizontal" flexItem />
-          <Typography variant="subtitle1">
-            Filter der Standorte anpassen
-          </Typography>
+          <Typography variant="h6">Filter der Standorte anpassen</Typography>
           <Stack
             direction="row"
             spacing={2}
             sx={{
               alignItems: "flex-start",
+              flexWrap: "wrap",
+              rowGap: 3,
             }}
           >
-            <TextField
-              label="Minimale Ausrichtung"
-              value={Ausrichtung_min}
-              onChange={(e) => setAusrichtung_min(e.target.value)}
-              type="number"
+            <Slider_w_Textfield
+              Titel={"Ausrichtung des Hanges"}
+              Beschreibung={<Beschreibung_Ausrichtung />}
+              Range={Ausrichtung}
+              setRange={setAusrichtung}
+              min={140}
+              optimum={180}
+              max={220}
+              adornment={"°"}
             />
-            <TextField
-              label="Maximale Ausrichtung"
-              value={Ausrichtung_max}
-              onChange={(e) => setAusrichtung_max(e.target.value)}
-              type="number"
+            <Divider orientation="vertical" flexItem />
+            <Slider_w_Textfield
+              Titel={"Neigung des Hanges"}
+              Beschreibung={<Beschreibung_Neigung />}
+              Range={Neigung}
+              setRange={setNeigung}
+              min={10}
+              optimum={32}
+              max={50}
+              adornment={"°"}
+            />
+            <Divider orientation="vertical" flexItem />
+            <Slider_w_Textfield
+              Titel={"Normierte Sonnenstunden"}
+              Beschreibung={<Beschreibung_Sonne />}
+              Range={Sonne}
+              setRange={setSonne}
+              min={0.01}
+              max={100}
+              adornment={"%"}
             />
           </Stack>
 
