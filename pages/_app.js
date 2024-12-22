@@ -14,10 +14,10 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { VegaLite } from "react-vega";
-import { Slider_w_Textfield } from "/pages/components/Slider_w_Textfield";
-import { Beschreibung_Ausrichtung } from "/pages/components/Texte/Beschreibung_Ausrichtung";
-import { Beschreibung_Neigung } from "/pages/components/Texte/Beschreibung_Neigung";
-import { Beschreibung_Sonne } from "/pages/components/Texte/Beschreibung_Sonne";
+import { Slider_w_Textfield } from "/components/Slider_w_Textfield";
+import { Beschreibung_Ausrichtung } from "/components/Texte/Beschreibung_Ausrichtung";
+import { Beschreibung_Neigung } from "/components/Texte/Beschreibung_Neigung";
+import { Beschreibung_Sonne } from "/components/Texte/Beschreibung_Sonne";
 
 export default function App() {
   const [Ausrichtung, setAusrichtung] = useState([140, 220]);
