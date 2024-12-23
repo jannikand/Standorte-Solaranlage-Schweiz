@@ -38,7 +38,7 @@ export const Slider_w_Textfield = ({
               ),
             }}
             type="number"
-            sx={{ minWidth: "100px" }}
+            sx={{}}
           />
           <Slider
             aria-label="Custom marks"
@@ -72,7 +72,7 @@ export const Slider_w_Textfield = ({
               ),
             }}
             type="number"
-            sx={{ minWidth: "100px" }}
+            sx={{}}
           />
         </Stack>
         {Beschreibung}
