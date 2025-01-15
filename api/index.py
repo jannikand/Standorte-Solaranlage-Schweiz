@@ -55,6 +55,7 @@ async def standorte(ausrichtung_min: float, ausrichtung_max: float, neigung_min:
         ).properties(
             width=1000,
             height=650,
+
         )
 
         balkendiagramm = alt.Chart(alt.Data(values=standorte_daten)).mark_bar().encode(
@@ -83,7 +84,19 @@ async def standorte(ausrichtung_min: float, ausrichtung_max: float, neigung_min:
             filter_sonne
         )
 
-        visualisierung = karte & balkendiagramm
+        Datenquelle = alt.Chart().mark_text(
+            align='left',
+            baseline='top',
+            fontSize=11,
+            color='gray',
+        ).encode(
+            text=alt.value("Datenquelle: © Swisstopo")
+        ).properties(
+            width=30,
+            height=5  # Höhe der Fußzeile
+        )
+
+        visualisierung = karte & balkendiagramm & Datenquelle
 
         #visualisierung.save('api/api_visualisierung.json')
         return visualisierung.to_dict()
